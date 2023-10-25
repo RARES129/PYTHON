@@ -1,4 +1,4 @@
-def process_strings(x = 1, lista = None, flag = True):
+def process_strings(x=1, lista=None, flag=True):
     result = []
     for string in lista:
         aux = []
@@ -12,7 +12,9 @@ def process_strings(x = 1, lista = None, flag = True):
 
     return result
 
+
 def main():
     print(process_strings(2, ["test", "hello", "lab002"], False))
+
 
 main()
