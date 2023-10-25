@@ -9,10 +9,14 @@ def compare_dicts(dict1, dict2):
         if isinstance(val1, dict) and isinstance(val2, dict):
             if not compare_dicts(val1, val2):
                 return False
-        elif isinstance(val1, (list, set)) and isinstance(val2, (list, set)):
+        elif isinstance(val1, set) and isinstance(val2, set):
             if set(val1) != set(val2):
                 return False
-
+        elif isinstance(val1, list) and isinstance(val2, list):
+            val1.sort()
+            val2.sort()
+            if val1 != val2:
+                return False
         elif val1 != val2:
             return False
     return True
