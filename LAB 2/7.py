@@ -1,23 +1,16 @@
-def nr_of_palindromes(numbers):
+def palindromes(numbers):
     nr_of_palindromes = 0
+    greatest_palindrome = 0
     for number in numbers:
         if str(number) == str(number)[::-1]:
+            if number > greatest_palindrome:
+                greatest_palindrome = number
             nr_of_palindromes += 1
-    return nr_of_palindromes
+    return nr_of_palindromes, greatest_palindrome
 
-def greatest_palindrome(numbers):
-    maxim = 0
-    for i in numbers:
-        if str(i) == str(i)[::-1]:
-            if i > maxim:
-                maxim = i
-
-    return maxim
-
-def return_tuple(numbers):
-    return (nr_of_palindromes(numbers), greatest_palindrome(numbers))
 
 def main():
-    print(return_tuple([11, 999, 1234321, 5, 32]))
+    print(palindromes([11, 999, 1234321, 5, 32]))
+
 
 main()
