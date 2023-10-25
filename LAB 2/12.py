@@ -1,21 +1,19 @@
 def group_by_rhyme(lista):
-    listaa = lista[:]
     result = []
-    for i in listaa:
-        for j in listaa:
-            if i != j and i[-2:] == j[-2:]:
-                result.append([i, j])
-                listaa.remove(i)
-                listaa.remove(j)
+    for index1 in lista:
+        for index2 in lista:
+            if index1 != index2 and index1[-2:] == index2[-2:]:
+                result.append([index1, index2])
+                lista.remove(index1)
+                lista.remove(index2)
                 break
-    
-    for i in listaa:
-        result.append([i])
-
+    for index in lista:
+        result.append([index])
     return result
 
 
 def main():
-    print(group_by_rhyme(['ana', 'banana', 'carte', 'arme', 'parte']))
+    print(group_by_rhyme(["ana", "banana", "carte", "arme", "parte"]))
+
 
 main()
