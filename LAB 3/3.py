@@ -13,8 +13,6 @@ def compare_dicts(dict1, dict2):
             if set(val1) != set(val2):
                 return False
         elif isinstance(val1, list) and isinstance(val2, list):
-            val1.sort()
-            val2.sort()
             if val1 != val2:
                 return False
         elif val1 != val2:
