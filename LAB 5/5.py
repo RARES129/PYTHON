@@ -3,9 +3,6 @@ class Animal:
         self.name = name
         self.habitat = habitat
 
-    def move(self):
-        print(f"{self.name} is moving.")
-
 
 class Mammal(Animal):
     def __init__(self, name, habitat, fur_color):
@@ -13,7 +10,7 @@ class Mammal(Animal):
         self.fur_color = fur_color
 
     def feed_young(self):
-        print(f"{self.name} is feeding its young.")
+        print(f"{self.name} isi hraneste puii cu lapte.")
 
 
 class Bird(Animal):
@@ -22,7 +19,7 @@ class Bird(Animal):
         self.wingspan = wingspan
 
     def fly(self):
-        print(f"{self.name} is flying.")
+        print(f"{self.name} zboara.")
 
 
 class Fish(Animal):
@@ -31,20 +28,17 @@ class Fish(Animal):
         self.water_type = water_type
 
     def swim(self):
-        print(f"{self.name} is swimming.")
+        print(f"{self.name} inoata.")
 
 
 def main():
-    lion = Mammal("Lion", "Savannah", "Golden")
-    lion.move()
+    lion = Mammal("Leu", "Savanna", "Golden")
     lion.feed_young()
 
-    eagle = Bird("Eagle", "Mountains", 2.5)
-    eagle.move()
+    eagle = Bird("Vultur", "Munti", 2.5)
     eagle.fly()
 
-    shark = Fish("Shark", "Ocean", "Saltwater")
-    shark.move()
+    shark = Fish("Rechin", "Ocean", "Apa sarata")
     shark.swim()
 
 

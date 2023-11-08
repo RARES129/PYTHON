@@ -7,23 +7,24 @@ class LibraryItem:
 
     def check_out(self):
         if self.checked_out:
-            print("Item is already checked out.")
+            print("Produsul a fost deja imprumutat")
         else:
             self.checked_out = True
-            print("Item checked out successfully.")
+            print("Produsul a fost imprumutat cu succes")
 
     def return_item(self):
         if self.checked_out:
             self.checked_out = False
-            print("Item returned successfully.")
+            print("Produsul a fost returnat cu succes")
         else:
-            print("Item is already in the library.")
+            print("Produsul este deja returnat")
 
     def display_info(self):
-        print(f"Title: {self.title}")
-        print(f"Author: {self.author}")
-        print(f"Item ID: {self.item_id}")
-        print(f"Checked Out: {self.checked_out}")
+        print("--------------------")
+        print(f"Titlu: {self.title}")
+        print(f"Autor: {self.author}")
+        print(f"ID: {self.item_id}")
+        print(f"Imprumutat: {self.checked_out}")
 
 
 class Book(LibraryItem):
@@ -33,7 +34,8 @@ class Book(LibraryItem):
 
     def display_info(self):
         super().display_info()
-        print(f"Number of Pages: {self.num_pages}")
+        print(f"Numarul de pagini: {self.num_pages}")
+        print("--------------------")
 
 
 class DVD(LibraryItem):
@@ -43,17 +45,19 @@ class DVD(LibraryItem):
 
     def display_info(self):
         super().display_info()
-        print(f"Runtime: {self.runtime}")
+        print(f"Durata: {self.runtime}")
+        print("--------------------")
 
 
 class Magazine(LibraryItem):
-    def __init__(self, title, author, item_id, checked_out, issue_num):
+    def __init__(self, title, author, item_id, checked_out, year):
         super().__init__(title, author, item_id, checked_out)
-        self.issue_num = issue_num
+        self.year = year
 
     def display_info(self):
         super().display_info()
-        print(f"Issue Number: {self.issue_num}")
+        print(f"Anul publicarii: {self.year}")
+        print("--------------------")
 
 
 def main():

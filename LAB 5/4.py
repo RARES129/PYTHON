@@ -24,6 +24,9 @@ class Engineer(Employee):
     def get_project(self):
         return self.project
 
+    def get_salary(self):
+        return super().get_salary()
+
 
 class Salesperson(Employee):
     def __init__(self, name, salary, commission):
@@ -39,9 +42,10 @@ def main():
     engineer = Engineer("Jane", 60000, "Project X")
     salesperson = Salesperson("Bob", 40000, 5000)
 
-    print(manager.name, manager.get_salary())
-    print(engineer.name, engineer.get_project())
-    print(salesperson.name, salesperson.get_salary())
+    print(manager.name + " -> " + str(manager.get_salary()) + " RON")
+    print(engineer.name + " -> " + engineer.get_project())
+    print(engineer.name + " -> " + str(engineer.get_salary()) + " RON")
+    print(salesperson.name + " -> " + str(salesperson.get_salary()) + " RON")
 
 
 main()

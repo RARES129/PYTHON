@@ -42,5 +42,4 @@ def main():
     print(truck.calculate_towing_capacity())
 
 
-if __name__ == "__main__":
-    main()
+main()
