@@ -61,25 +61,25 @@ class Magazine(LibraryItem):
 
 
 def main():
-    book1 = Book("The Great Gatsby", "F. Scott Fitzgerald", 1, False, 180)
-    dvd1 = DVD("The Godfather", "Francis Ford Coppola", 2, False, 175)
-    mag1 = Magazine("National Geographic", "Various", 3, False, 2021)
+    book = Book("The Great Gatsby", "F. Scott Fitzgerald", 1, False, 180)
+    dvd = DVD("The Godfather", "Francis Ford Coppola", 2, False, 175)
+    magazine = Magazine("National Geographic", "Various", 3, False, 2021)
 
-    book1.check_out()
-    dvd1.check_out()
-    mag1.check_out()
+    book.check_out()
+    dvd.check_out()
+    magazine.check_out()
 
-    book1.display_info()
-    dvd1.display_info()
-    mag1.display_info()
+    book.display_info()
+    dvd.display_info()
+    magazine.display_info()
 
-    book1.return_item()
-    dvd1.return_item()
-    mag1.return_item()
+    book.return_item()
+    dvd.return_item()
+    magazine.return_item()
 
-    book1.display_info()
-    dvd1.display_info()
-    mag1.display_info()
+    book.display_info()
+    dvd.display_info()
+    magazine.display_info()
 
 
 main()
