@@ -10,7 +10,7 @@ class Account:
         if self.balance >= amount:
             self.balance -= amount
         else:
-            print("N-AI BANI SARAAAACULEEEEE !!!")
+            print("FONDURI INSUFICIENTE !!!")
 
     def calculate_interest(self):
         pass
