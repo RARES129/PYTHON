@@ -2,23 +2,23 @@ import os
 import sys
 
 if len(sys.argv) != 2:
-    print("Usage: python 4.py <directory_path>")
+    print("Incearca sa folosesti: python 4.py <path-ul directorului>")
     sys.exit(1)
 
 directory_path = sys.argv[1]
 
 if not os.path.isdir(directory_path):
-    print(f"{directory_path} is not a directory.")
+    print(f"{directory_path} nu este un director.")
     sys.exit(1)
 
 try:
     files = os.listdir(directory_path)
 except PermissionError:
-    print(f"No read permission for {directory_path}.")
+    print(f"Nu avem permisiunea de citire {directory_path}.")
     sys.exit(1)
 
 if not files:
-    print(f"{directory_path} is empty.")
+    print(f"{directory_path} E GOL.")
     sys.exit(0)
 
 extensions = {}
