@@ -1,7 +1,7 @@
 import os
 
 # asta trebuie decomentata, dar am lasat o comentata ca sa nu mi mai redenumesc fisierele
-# directory_path = "C:/Users/dasca/Desktop/GREEN_GUM/PYTHON/LAB_6/2/"
+# directory_path = "C:/Users/dasca/Desktop/GREEN_GUM/PYTHON/LAB_6/2/fisiere"
 
 if os.path.exists(directory_path):
     files = os.listdir(directory_path)
