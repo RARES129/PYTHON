@@ -33,3 +33,6 @@ for file in files:
 
 for extension, count in extensions.items():
     print(f"{extension}: {count}")
+
+# Run in terminal:
+# python 4.py C:\Users\dasca\Desktop\GREEN_GUM\PYTHON\LAB_6\4
