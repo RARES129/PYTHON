@@ -21,4 +21,4 @@ except:
     print("NU I OK CE AI SCRIS IN TERMINAL, INCEARCA IAR")
 
 # run this in terminal:
-# python 1.py C:\Users\dasca\Desktop\GREEN_GUM\PYTHON\LAB_6 .txt
+# python 1.py C:\Users\dasca\Desktop\GREEN_GUM\PYTHON\LAB_6\1 .txt
