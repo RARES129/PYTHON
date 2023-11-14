@@ -31,8 +31,8 @@ for file in files:
         else:
             extensions[extension] = 1
 
-for extension, count in extensions.items():
-    print(f"{extension}: {count}")
+for extension in extensions:
+    print(f"{extension}: {extensions[extension]}")
 
 # Run in terminal:
 # python 4.py C:\Users\dasca\Desktop\GREEN_GUM\PYTHON\LAB_6\4
