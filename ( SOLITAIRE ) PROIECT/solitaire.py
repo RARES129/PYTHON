@@ -306,3 +306,50 @@ game_active = True
 wasteDeck = WasteDeck(50, 140)
 reserveDeck = ReserveDeck(50, 20)
 moveDeck = MoveDeck(0, 0)
+
+while running:
+    # --------------------------------Constuim elementele jocului
+    if reset:
+        """Cream pachetul de carti"""
+        deck = []
+        foundationDeck = []
+        MainDeck = []
+        reserveDeck.remove_cards()
+        wasteDeck.remove_cards()
+        moveDeck.remove_cards()
+        for number in range(1, 14):
+            for suit in ["hearts", "diamonds"]:
+                card = Card("red", suit, number)
+                deck.append(card)
+            for suit in ["clubs", "spades"]:
+                card = Card("black", suit, number)
+                deck.append(card)
+
+        """Amestecam cartile"""
+        random.shuffle(deck)
+
+        """Cream pachetele de carti principale"""
+        numberOfCards = 1
+        for i in range(7):
+            newMainDeck = Deck(250 + i * Deck.SpaceBetweenDecks, 20)
+            for j in range(numberOfCards):
+                card = deck.pop()
+                if j == numberOfCards - 1:
+                    card.flip()
+                newMainDeck.add_card(card)
+            MainDeck.append(newMainDeck)
+            numberOfCards += 1
+
+        """Cream pachetul de carti de rezerva"""
+        for i in range(len(deck)):
+            card = deck.pop()
+            reserveDeck.add_card(card)
+
+        """Cream pachetele de carti finale"""
+        for i, suit in enumerate(["hearts", "spades", "diamonds", "clubs"]):
+            newFoundationDeck = FoundationDeck(
+                50 + i * Deck.SpaceBetweenDecks, height - 150, suit
+            )
+            foundationDeck.append(newFoundationDeck)
+
+        reset = False
