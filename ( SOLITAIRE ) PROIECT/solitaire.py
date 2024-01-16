@@ -357,7 +357,11 @@ while running:
         reset = False
 
     """Verificam daca jocul a fost castigat"""
-    if all(len(deck.cards) == 13 for deck in foundationDeck):
+    if all(
+        all(card.faceup for card in deck.cards)
+        and (not deck.cards or deck.cards[0].number == 13)
+        for deck in MainDeck
+    ):
         game_won = True
 
     """--------------------------------Gestionam evenimentele"""
@@ -516,7 +520,7 @@ while running:
     """--------------------------------Verificam daca am castigat jocul"""
     if game_won:
         font = pygame.font.SysFont("comicsans", 100)
-        text = font.render("You Won!", 1, (255, 255, 255))
+        text = font.render("You Won!", 1, (0, 0, 255))
         window.blit(
             text, (width / 2 - text.get_width() / 2, height / 2 - text.get_height() / 2)
         )
