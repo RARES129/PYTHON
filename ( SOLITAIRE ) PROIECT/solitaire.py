@@ -430,3 +430,76 @@ while running:
                         card = deck.remove_top_card()
                         deck.add_card(card)
                         moveDeck.add_card(card)
+
+            """--------------------------------Evenimentele cand avem carti selectate"""
+        elif event.type == pygame.MOUSEBUTTONDOWN and game_active and moveDeck.active:
+            MousePosX, MousePosY = pygame.mouse.get_pos()
+            """Verificam daca am dat click pe unul dintre pachetele de carti finale"""
+            for deck in foundationDeck:
+                if (
+                    deck.x <= MousePosX <= deck.x + 66
+                    and deck.y <= MousePosY <= deck.y + 100
+                ):
+                    if len(moveDeck.cards) == 1:
+                        card = moveDeck.get_top_card()
+                        if deck.add_card(card):
+                            moveDeck.remove_cards()
+                            for main_deck in MainDeck:
+                                if card in main_deck.cards:
+                                    main_deck.cards.remove(card)
+                                    if (
+                                        len(main_deck.cards) > 0
+                                        and not main_deck.cards[-1].faceup
+                                    ):
+                                        main_deck.cards[-1].flip()
+                            if card in wasteDeck.cards:
+                                wasteDeck.cards.remove(card)
+
+            """Verificam daca am dat click pe unul dintre pachetele de carti principale"""
+            for deck in MainDeck:
+                if (deck.x <= MousePosX <= deck.x + 66) and (
+                    deck.y + (len(deck.cards) - 1) * Deck.SpaceBetweenCards
+                    <= MousePosY
+                    <= deck.y + (len(deck.cards) - 1) * Deck.SpaceBetweenCards + 100
+                ):
+                    if len(deck.cards) == 0:
+                        if moveDeck.cards[0].number == 13:
+                            for card in moveDeck.cards:
+                                for main_deck in MainDeck:
+                                    if card in main_deck.cards:
+                                        main_deck.cards.remove(card)
+                                        if (
+                                            len(main_deck.cards) > 0
+                                            and not main_deck.cards[-1].faceup
+                                        ):
+                                            main_deck.cards[-1].flip()
+                                    if card in wasteDeck.cards:
+                                        wasteDeck.cards.remove(card)
+                                    for foundation_deck in foundationDeck:
+                                        if card in foundation_deck.cards:
+                                            foundation_deck.cards.remove(card)
+                                deck.add_card(card)
+                            moveDeck.remove_cards()
+
+                    elif moveDeck.cards[0].isOppositeColour(
+                        deck.get_top_card()
+                    ) and moveDeck.cards[0].IsOneLessThan(deck.get_top_card()):
+                        for card in moveDeck.cards:
+                            for main_deck in MainDeck:
+                                if card in main_deck.cards:
+                                    main_deck.cards.remove(card)
+                                    if (
+                                        len(main_deck.cards) > 0
+                                        and not main_deck.cards[-1].faceup
+                                    ):
+                                        main_deck.cards[-1].flip()
+                                if card in wasteDeck.cards:
+                                    wasteDeck.cards.remove(card)
+                                for foundation_deck in foundationDeck:
+                                    if card in foundation_deck.cards:
+                                        foundation_deck.cards.remove(card)
+                            deck.add_card(card)
+
+                        moveDeck.remove_cards()
+
+            moveDeck.remove_cards()
