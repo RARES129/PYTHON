@@ -514,3 +514,16 @@ while running:
     wasteDeck.draw()
     Reset = ResetButton(width - 150, height - 150, 100, 100)
     Reset.draw()
+
+    """--------------------------------Verificam daca am castigat jocul"""
+    if game_won:
+        font = pygame.font.SysFont("comicsans", 100)
+        text = font.render("You Won!", 1, (0, 0, 255))
+        window.blit(
+            text, (width / 2 - text.get_width() / 2, height / 2 - text.get_height() / 2)
+        )
+        game_active = False
+
+    pygame.display.flip()
+
+pygame.quit()
