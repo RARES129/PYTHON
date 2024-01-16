@@ -1,8 +1,7 @@
 import pygame
-import sys
 import random
-import os
 
+"""--------------------------------Initializam libraria Pygame si setam dimensiunile ferestrei""" ""
 pygame.init()
 width, height = 1000, 600
 pygame.display.set_caption("Solitaire")
@@ -12,6 +11,8 @@ background_color = (0, 128, 0)  # RGB value for dark green
 
 pygame.display.update()
 
+""" Functie pentru a incarca o imagine si a o scala la dimensiunile dorite """
+
 
 def UploadImage(image_path, width, height):
     image = pygame.image.load(image_path)
@@ -20,7 +21,12 @@ def UploadImage(image_path, width, height):
 
 
 # ---------------------------CARTI DE JOC---------------------------
+""" Clasa pentru cartile de joc."""
+
+
 class Card:
+    """Constructorul clasei"""
+
     def __init__(self, color, suit, number):
         self.color = color
         self.suit = suit
@@ -34,11 +40,17 @@ class Card:
         self.border_color = (255, 0, 0)
         self.has_border = False
 
+    """Metoda pentru a desena cartea de joc"""
+
     def draw(self, x, y):
         window.blit(self.imageShow, (x, y))
 
+    """Metoda pentru a obtine culoarea cartii"""
+
     def get_colour(self):
         return self.color
+
+    """Metoda pentru a intoarce cartea de joc"""
 
     def flip(self):
         self.faceup = not self.faceup
@@ -47,8 +59,12 @@ class Card:
         else:
             self.imageShow = self.cardBack
 
+    """Metoda pentru a adauga sau elimina bordura cartii de joc"""
+
     def set_border(self):
         self.has_border = not self.has_border
+
+    """Metoda pentru a verifica daca cartea este de culoare opusa cu cartea data ca parametru"""
 
     def isOppositeColour(self, other_card):
         if self.color == "red" and other_card.color == "black":
@@ -58,6 +74,8 @@ class Card:
         else:
             return False
 
+    """Metoda pentru a verifica daca cartea este cu un numar mai mica decat cartea data ca parametru"""
+
     def IsOneLessThan(self, other_card):
         if self.number == other_card.number - 1:
             return True
@@ -66,9 +84,14 @@ class Card:
 
 
 # ---------------------------PACHETE DE CARTI PRINCIPALE---------------------------
+""" Clasa pentru pachetele de carti principale."""
+
+
 class Deck:
     SpaceBetweenCards = 25
     SpaceBetweenDecks = 100
+
+    """"Constructorul clasei"""
 
     def __init__(self, x, y):
         self.x = x
@@ -76,8 +99,12 @@ class Deck:
         self.cards = []
         self.emptyDeckImage = UploadImage("PNG-cards/empty_pile_slot.png", 66, 100)
 
+    """Metoda pentru a adauga o carte in pachetul de carti principale"""
+
     def add_card(self, card):
         self.cards.append(card)
+
+    """Metoda pentru a desena pachetul de carti principale"""
 
     def draw(self):
         if self.cards:
@@ -93,11 +120,15 @@ class Deck:
         else:
             window.blit(self.emptyDeckImage, (self.x, self.y))
 
+    """Metoda pentru a vizualiza cartea de sus din pachetul de carti principale"""
+
     def get_top_card(self):
         if self.cards:
             return self.cards[-1]
         else:
             return None
+
+    """Metoda pentru a elimina cartea de sus din pachetul de carti principale"""
 
     def remove_top_card(self):
         if self.cards:
@@ -105,12 +136,19 @@ class Deck:
         else:
             return None
 
+    """Metoda pentru a elimina toate cartile"""
+
     def remove_cards(self):
         self.cards.clear()
 
 
 # ---------------------------PACHET DE CARTI DE REZERVA---------------------------
+""" Clasa pentru pachetul de carti de rezerva."""
+
+
 class ReserveDeck(Deck):
+    """Metoda pentru a desena pachetul de carti de rezerva"""
+
     def draw(self):
         if self.cards:
             for i, card in enumerate(self.cards):
@@ -125,6 +163,8 @@ class ReserveDeck(Deck):
         else:
             window.blit(self.emptyDeckImage, (self.x, self.y))
 
+    """Metoda pentru a elimina cartea de sus din pachetul de carti de rezerva"""
+
     def remove_top_card(self):
         if self.cards:
             card = self.cards.pop()
@@ -135,11 +175,18 @@ class ReserveDeck(Deck):
 
 
 # ---------------------------PACHETE DE CARTI FINALE---------------------------
+""" Clasa pentru pachetele de carti finale."""
+
+
 class FoundationDeck(Deck):
+    """Constructorul clasei"""
+
     def __init__(self, x, y, suit):
         super().__init__(x, y)
         self.suit = suit
         self.emptyDeckImage = UploadImage(f"PNG-cards/{suit}_slot.png", 66, 100)
+
+    """Metoda pentru a adauga o carte in pachetul de carti finale"""
 
     def add_card(self, card):
         if card.suit == self.suit:
@@ -152,6 +199,8 @@ class FoundationDeck(Deck):
                     self.cards.append(card)
                     return True
         return False
+
+    """"Metoda pentru a desena pachetul de carti finale"""
 
     def draw(self):
         if self.cards:
@@ -169,7 +218,12 @@ class FoundationDeck(Deck):
 
 
 # ---------------------------CARTILE TRASE DIN PACHETUL DE REZERVA---------------------------
+""" Clasa pentru cartile trase din pachetul de rezerva."""
+
+
 class WasteDeck(Deck):
+    """metoda pentru a desena pachetul de carti trase din pachetul de rezerva"""
+
     def draw(self):
         if self.cards:
             for i, card in enumerate(self.cards):
@@ -186,17 +240,24 @@ class WasteDeck(Deck):
 
 
 # ---------------------------PACHET PENTRU MUTARI---------------------------
+""" Clasa pentru pachetul pentru mutari."""
 
 
 class MoveDeck(Deck):
+    """Constructorul clasei"""
+
     def __init__(self, x, y):
         super().__init__(x, y)
         self.active = False
+
+    """Metoda pentru a desena pachetul de mutari"""
 
     def add_card(self, card):
         self.cards.append(card)
         card.set_border()
         self.active = True
+
+    """Metoda pentru a desena pachetul de mutari"""
 
     def remove_cards(self):
         for card in self.cards:
@@ -206,7 +267,12 @@ class MoveDeck(Deck):
 
 
 # ---------------------------BUTON RESET---------------------------
+""" Clasa pentru butonul de reset."""
+
+
 class ResetButton:
+    """Constructorul clasei"""
+
     def __init__(self, x, y, width, height):
         self.x = x
         self.y = y
@@ -214,8 +280,12 @@ class ResetButton:
         self.height = height
         self.image = UploadImage("PNG-cards/reset.png", width, height)
 
+    """Metoda pentru a desena butonul"""
+
     def draw(self):
         window.blit(self.image, (self.x, self.y))
+
+    """Metoda pentru a verifica daca butonul a fost apasat"""
 
     def IsClicked(self):
         MousePosX, MousePosY = pygame.mouse.get_pos()
@@ -229,6 +299,7 @@ class ResetButton:
 
 
 # ---------------------------LOOP-UL PRINCIPAL AL JOCULUI---------------------------
+""" Initializam variabilele jocului"""
 running = True
 reset = True
 game_won = False
@@ -237,10 +308,11 @@ wasteDeck = WasteDeck(50, 140)
 reserveDeck = ReserveDeck(50, 20)
 moveDeck = MoveDeck(0, 0)
 
+"""Loop-ul principal al jocului"""
 while running:
     # --------------------------------Constuim elementele jocului
     if reset:
-        # Cream pachetul de carti
+        """Cream pachetul de carti"""
         deck = []
         foundationDeck = []
         MainDeck = []
@@ -254,9 +326,11 @@ while running:
             for suit in ["clubs", "spades"]:
                 card = Card("black", suit, number)
                 deck.append(card)
+
+        """Amestecam cartile"""
         random.shuffle(deck)
 
-        # Cream pachetele de carti principale
+        """Cream pachetele de carti principale"""
         numberOfCards = 1
         for i in range(7):
             newMainDeck = Deck(250 + i * Deck.SpaceBetweenDecks, 20)
@@ -268,12 +342,12 @@ while running:
             MainDeck.append(newMainDeck)
             numberOfCards += 1
 
-        # Cream pachetul de carti de rezerva
+        """Cream pachetul de carti de rezerva"""
         for i in range(len(deck)):
             card = deck.pop()
             reserveDeck.add_card(card)
 
-        # Cream pachetele de carti finale
+        """Cream pachetele de carti finale"""
         for i, suit in enumerate(["hearts", "spades", "diamonds", "clubs"]):
             newFoundationDeck = FoundationDeck(
                 50 + i * Deck.SpaceBetweenDecks, height - 150, suit
@@ -282,23 +356,23 @@ while running:
 
         reset = False
 
-    # Verificam daca jocul a fost castigat
+    """Verificam daca jocul a fost castigat"""
     if all(len(deck.cards) == 13 for deck in foundationDeck):
         game_won = True
 
-    # --------------------------------Gestionam evenimentele
+    """--------------------------------Gestionam evenimentele"""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             if Reset.IsClicked():
-                # --------------------------------Evenimentele cand nu avem carti selectate
                 reset = True
+        """--------------------------------Evenimentele cand nu avem carti selectate"""
         if event.type == pygame.MOUSEBUTTONDOWN and game_active and not moveDeck.active:
             MousePosX, MousePosY = pygame.mouse.get_pos()
 
-            # Verificam daca am dat click pe pachetul de carti de rezerva
+            """Verificam daca am dat click pe pachetul de carti de rezerva"""
             if (
                 reserveDeck.x <= MousePosX <= reserveDeck.x + 66
                 and reserveDeck.y <= MousePosY <= reserveDeck.y + 100
@@ -312,7 +386,7 @@ while running:
                     card = reserveDeck.remove_top_card()
                     wasteDeck.add_card(card)
 
-            # Verificam daca am dat click pe pachetul de carti trase din pachetul de rezerva
+            """Verificam daca am dat click pe pachetul de carti trase din pachetul de rezerva"""
             if (wasteDeck.x <= MousePosX <= wasteDeck.x + 66) and (
                 wasteDeck.y <= MousePosY <= wasteDeck.y + 100
             ):
@@ -321,7 +395,7 @@ while running:
                     wasteDeck.add_card(card)
                     moveDeck.add_card(card)
 
-            # Verificam daca am dat click pe unul dintre pachetele de carti principale
+            """Verificam daca am dat click pe unul dintre pachetele de carti principale"""
             for deck in MainDeck:
                 for i, card in enumerate(deck.cards):
                     if (
@@ -344,7 +418,7 @@ while running:
                             for card in deck.cards[i:]:
                                 moveDeck.add_card(card)
 
-            # Verificam daca am dat click pe unul dintre pachetele de carti finale
+            """Verificam daca am dat click pe unul dintre pachetele de carti finale"""
             for deck in foundationDeck:
                 if (
                     deck.x <= MousePosX <= deck.x + 66
@@ -355,9 +429,10 @@ while running:
                         deck.add_card(card)
                         moveDeck.add_card(card)
 
-        # --------------------------------Evenimentele cand avem carti selectate
+            """--------------------------------Evenimentele cand avem carti selectate"""
         elif event.type == pygame.MOUSEBUTTONDOWN and game_active and moveDeck.active:
             MousePosX, MousePosY = pygame.mouse.get_pos()
+            """Verificam daca am dat click pe unul dintre pachetele de carti finale"""
             for deck in foundationDeck:
                 if (
                     deck.x <= MousePosX <= deck.x + 66
@@ -378,6 +453,7 @@ while running:
                             if card in wasteDeck.cards:
                                 wasteDeck.cards.remove(card)
 
+            """Verificam daca am dat click pe unul dintre pachetele de carti principale"""
             for deck in MainDeck:
                 if (deck.x <= MousePosX <= deck.x + 66) and (
                     deck.y + (len(deck.cards) - 1) * Deck.SpaceBetweenCards
@@ -426,7 +502,7 @@ while running:
 
             moveDeck.remove_cards()
 
-    # --------------------------------Randam elementele
+    """--------------------------------Randam elementele"""
     window.fill(background_color)
     for deck in foundationDeck:
         deck.draw()
@@ -437,7 +513,7 @@ while running:
     Reset = ResetButton(width - 150, height - 150, 100, 100)
     Reset.draw()
 
-    # --------------------------------Verificam daca am castigat jocul
+    """--------------------------------Verificam daca am castigat jocul"""
     if game_won:
         font = pygame.font.SysFont("comicsans", 100)
         text = font.render("You Won!", 1, (255, 255, 255))
