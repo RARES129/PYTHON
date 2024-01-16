@@ -215,3 +215,25 @@ class FoundationDeck(Deck):
                     )
         else:
             window.blit(self.emptyDeckImage, (self.x, self.y))
+
+
+# ---------------------------CARTILE TRASE DIN PACHETUL DE REZERVA---------------------------
+""" Clasa pentru cartile trase din pachetul de rezerva."""
+
+
+class WasteDeck(Deck):
+    """metoda pentru a desena pachetul de carti trase din pachetul de rezerva"""
+
+    def draw(self):
+        if self.cards:
+            for i, card in enumerate(self.cards):
+                card.draw(self.x, self.y)
+                if card.has_border:
+                    pygame.draw.rect(
+                        window,
+                        card.border_color,
+                        (self.x - 1, self.y - 1, 68, 102),
+                        3,
+                    )
+        else:
+            window.blit(self.emptyDeckImage, (self.x, self.y))
