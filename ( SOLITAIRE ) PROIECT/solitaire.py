@@ -503,3 +503,14 @@ while running:
                         moveDeck.remove_cards()
 
             moveDeck.remove_cards()
+
+    """--------------------------------Randam elementele"""
+    window.fill(background_color)
+    for deck in foundationDeck:
+        deck.draw()
+    for deck in MainDeck:
+        deck.draw()
+    reserveDeck.draw()
+    wasteDeck.draw()
+    Reset = ResetButton(width - 150, height - 150, 100, 100)
+    Reset.draw()
