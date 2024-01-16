@@ -12,8 +12,6 @@ background_color = (0, 128, 0)  # RGB value for dark green
 pygame.display.flip()
 
 """ Functie pentru a incarca o imagine si a o scala la dimensiunile dorite """
-
-
 def UploadImage(image_path, width, height):
     image = pygame.image.load(image_path)
     scaled_image = pygame.transform.scale(image, (width, height))
@@ -140,3 +138,36 @@ class Deck:
 
     def remove_cards(self):
         self.cards.clear()
+
+
+# ---------------------------PACHET DE CARTI DE REZERVA---------------------------
+""" Clasa pentru pachetul de carti de rezerva."""
+
+
+class ReserveDeck(Deck):
+    """Metoda pentru a desena pachetul de carti de rezerva"""
+
+    def draw(self):
+        if self.cards:
+            for i, card in enumerate(self.cards):
+                card.draw(self.x, self.y)
+                if card.has_border:
+                    pygame.draw.rect(
+                        window,
+                        card.border_color,
+                        (self.x - 1, self.y - 1, 68, 102),
+                        3,
+                    )
+        else:
+            window.blit(self.emptyDeckImage, (self.x, self.y))
+
+    """Metoda pentru a elimina cartea de sus din pachetul de carti de rezerva"""
+
+    def remove_top_card(self):
+        if self.cards:
+            card = self.cards.pop()
+            card.flip()
+            return card
+        else:
+            return None
+
