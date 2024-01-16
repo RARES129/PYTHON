@@ -361,3 +361,72 @@ while running:
         for deck in MainDeck
     ):
         game_won = True
+
+    """--------------------------------Gestionam evenimentele"""
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if Reset.IsClicked():
+                reset = True
+        """--------------------------------Evenimentele cand nu avem carti selectate"""
+        if event.type == pygame.MOUSEBUTTONDOWN and game_active and not moveDeck.active:
+            MousePosX, MousePosY = pygame.mouse.get_pos()
+
+            """Verificam daca am dat click pe pachetul de carti de rezerva"""
+            if (
+                reserveDeck.x <= MousePosX <= reserveDeck.x + 66
+                and reserveDeck.y <= MousePosY <= reserveDeck.y + 100
+            ):
+                if not reserveDeck.cards:
+                    for i in range(len(wasteDeck.cards)):
+                        card = wasteDeck.remove_top_card()
+                        card.flip()
+                        reserveDeck.add_card(card)
+                else:
+                    card = reserveDeck.remove_top_card()
+                    wasteDeck.add_card(card)
+
+            """Verificam daca am dat click pe pachetul de carti trase din pachetul de rezerva"""
+            if (wasteDeck.x <= MousePosX <= wasteDeck.x + 66) and (
+                wasteDeck.y <= MousePosY <= wasteDeck.y + 100
+            ):
+                if wasteDeck.cards:
+                    card = wasteDeck.remove_top_card()
+                    wasteDeck.add_card(card)
+                    moveDeck.add_card(card)
+
+            """Verificam daca am dat click pe unul dintre pachetele de carti principale"""
+            for deck in MainDeck:
+                for i, card in enumerate(deck.cards):
+                    if (
+                        i == len(deck.cards) - 1
+                        and deck.x <= MousePosX < deck.x + 66
+                        and deck.y + i * Deck.SpaceBetweenCards
+                        <= MousePosY
+                        < deck.y + i * Deck.SpaceBetweenCards + 100
+                    ):
+                        if card.faceup:
+                            for card in deck.cards[i:]:
+                                moveDeck.add_card(card)
+                    elif (
+                        deck.x <= MousePosX < deck.x + 66
+                        and deck.y + i * Deck.SpaceBetweenCards
+                        <= MousePosY
+                        < deck.y + (i + 1) * Deck.SpaceBetweenCards
+                    ):
+                        if card.faceup:
+                            for card in deck.cards[i:]:
+                                moveDeck.add_card(card)
+
+            """Verificam daca am dat click pe unul dintre pachetele de carti finale"""
+            for deck in foundationDeck:
+                if (
+                    deck.x <= MousePosX <= deck.x + 66
+                    and deck.y <= MousePosY <= deck.y + 100
+                ):
+                    if deck.cards:
+                        card = deck.remove_top_card()
+                        deck.add_card(card)
+                        moveDeck.add_card(card)
