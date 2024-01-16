@@ -12,8 +12,6 @@ background_color = (0, 128, 0)  # RGB value for dark green
 pygame.display.flip()
 
 """ Functie pentru a incarca o imagine si a o scala la dimensiunile dorite """
-
-
 def UploadImage(image_path, width, height):
     image = pygame.image.load(image_path)
     scaled_image = pygame.transform.scale(image, (width, height))
@@ -266,6 +264,7 @@ class MoveDeck(Deck):
         self.active = False
 
 
+# ---------------------------BUTON RESET---------------------------
 """ Clasa pentru butonul de reset."""
 
 
@@ -307,6 +306,7 @@ wasteDeck = WasteDeck(50, 140)
 reserveDeck = ReserveDeck(50, 20)
 moveDeck = MoveDeck(0, 0)
 
+"""Loop-ul principal al jocului"""
 while running:
     # --------------------------------Constuim elementele jocului
     if reset:
@@ -353,3 +353,11 @@ while running:
             foundationDeck.append(newFoundationDeck)
 
         reset = False
+
+    """Verificam daca jocul a fost castigat"""
+    if all(
+        all(card.faceup for card in deck.cards)
+        and (not deck.cards or deck.cards[0].number == 13)
+        for deck in MainDeck
+    ):
+        game_won = True
