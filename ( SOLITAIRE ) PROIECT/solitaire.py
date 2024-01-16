@@ -295,3 +295,14 @@ class ResetButton:
             return True
         else:
             return False
+
+
+# ---------------------------LOOP-UL PRINCIPAL AL JOCULUI---------------------------
+""" Initializam variabilele jocului"""
+running = True
+reset = True
+game_won = False
+game_active = True
+wasteDeck = WasteDeck(50, 140)
+reserveDeck = ReserveDeck(50, 20)
+moveDeck = MoveDeck(0, 0)
