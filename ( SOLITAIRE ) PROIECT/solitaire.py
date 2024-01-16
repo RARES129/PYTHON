@@ -81,3 +81,62 @@ class Card:
             return True
         else:
             return False
+
+
+# ---------------------------PACHETE DE CARTI PRINCIPALE---------------------------
+""" Clasa pentru pachetele de carti principale."""
+
+
+class Deck:
+    SpaceBetweenCards = 25
+    SpaceBetweenDecks = 100
+
+    """"Constructorul clasei"""
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.cards = []
+        self.emptyDeckImage = UploadImage("PNG-cards/empty_pile_slot.png", 66, 100)
+
+    """Metoda pentru a adauga o carte in pachetul de carti principale"""
+
+    def add_card(self, card):
+        self.cards.append(card)
+
+    """Metoda pentru a desena pachetul de carti principale"""
+
+    def draw(self):
+        if self.cards:
+            for i, card in enumerate(self.cards):
+                card.draw(self.x, self.y + i * Deck.SpaceBetweenCards)
+                if card.has_border:
+                    pygame.draw.rect(
+                        window,
+                        card.border_color,
+                        (self.x - 1, self.y + i * Deck.SpaceBetweenCards - 1, 68, 102),
+                        3,
+                    )
+        else:
+            window.blit(self.emptyDeckImage, (self.x, self.y))
+
+    """Metoda pentru a vizualiza cartea de sus din pachetul de carti principale"""
+
+    def get_top_card(self):
+        if self.cards:
+            return self.cards[-1]
+        else:
+            return None
+
+    """Metoda pentru a elimina cartea de sus din pachetul de carti principale"""
+
+    def remove_top_card(self):
+        if self.cards:
+            return self.cards.pop()
+        else:
+            return None
+
+    """Metoda pentru a elimina toate cartile"""
+
+    def remove_cards(self):
+        self.cards.clear()
