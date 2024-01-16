@@ -12,6 +12,8 @@ background_color = (0, 128, 0)  # RGB value for dark green
 pygame.display.flip()
 
 """ Functie pentru a incarca o imagine si a o scala la dimensiunile dorite """
+
+
 def UploadImage(image_path, width, height):
     image = pygame.image.load(image_path)
     scaled_image = pygame.transform.scale(image, (width, height))
@@ -370,6 +372,8 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             if Reset.IsClicked():
                 reset = True
+                game_won = False
+                game_active = True
         """--------------------------------Evenimentele cand nu avem carti selectate"""
         if event.type == pygame.MOUSEBUTTONDOWN and game_active and not moveDeck.active:
             MousePosX, MousePosY = pygame.mouse.get_pos()
