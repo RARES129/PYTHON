@@ -1,13 +1,14 @@
 import pygame
 import random
+import pygame.mixer
 
 """--------------------------------Initializam libraria Pygame si setam dimensiunile ferestrei""" ""
 pygame.init()
 width, height = 1000, 600
 pygame.display.set_caption("Solitaire")
 window = pygame.display.set_mode((width, height))
-background_color = (0, 128, 0)  # RGB value for dark green
-
+background_color = (0, 128, 0)
+click_sound = pygame.mixer.Sound("click_sound.wav")
 
 pygame.display.flip()
 
@@ -371,6 +372,7 @@ while running:
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             if Reset.IsClicked():
+                click_sound.play()
                 reset = True
                 game_won = False
                 game_active = True
@@ -383,6 +385,7 @@ while running:
                 reserveDeck.x <= MousePosX <= reserveDeck.x + 66
                 and reserveDeck.y <= MousePosY <= reserveDeck.y + 100
             ):
+                click_sound.play()
                 if not reserveDeck.cards:
                     for i in range(len(wasteDeck.cards)):
                         card = wasteDeck.remove_top_card()
@@ -396,6 +399,7 @@ while running:
             if (wasteDeck.x <= MousePosX <= wasteDeck.x + 66) and (
                 wasteDeck.y <= MousePosY <= wasteDeck.y + 100
             ):
+                click_sound.play()
                 if wasteDeck.cards:
                     card = wasteDeck.remove_top_card()
                     wasteDeck.add_card(card)
@@ -412,6 +416,7 @@ while running:
                         < deck.y + i * Deck.SpaceBetweenCards + 100
                     ):
                         if card.faceup:
+                            click_sound.play()
                             for card in deck.cards[i:]:
                                 moveDeck.add_card(card)
                     elif (
@@ -421,6 +426,7 @@ while running:
                         < deck.y + (i + 1) * Deck.SpaceBetweenCards
                     ):
                         if card.faceup:
+                            click_sound.play()
                             for card in deck.cards[i:]:
                                 moveDeck.add_card(card)
 
@@ -434,6 +440,7 @@ while running:
                         card = deck.remove_top_card()
                         deck.add_card(card)
                         moveDeck.add_card(card)
+                        click_sound.play()
 
             """--------------------------------Evenimentele cand avem carti selectate"""
         elif event.type == pygame.MOUSEBUTTONDOWN and game_active and moveDeck.active:
@@ -447,6 +454,7 @@ while running:
                     if len(moveDeck.cards) == 1:
                         card = moveDeck.get_top_card()
                         if deck.add_card(card):
+                            click_sound.play()
                             moveDeck.remove_cards()
                             for main_deck in MainDeck:
                                 if card in main_deck.cards:
@@ -468,6 +476,7 @@ while running:
                 ):
                     if len(deck.cards) == 0:
                         if moveDeck.cards[0].number == 13:
+                            click_sound.play()
                             for card in moveDeck.cards:
                                 for main_deck in MainDeck:
                                     if card in main_deck.cards:
@@ -488,6 +497,7 @@ while running:
                     elif moveDeck.cards[0].isOppositeColour(
                         deck.get_top_card()
                     ) and moveDeck.cards[0].IsOneLessThan(deck.get_top_card()):
+                        click_sound.play()
                         for card in moveDeck.cards:
                             for main_deck in MainDeck:
                                 if card in main_deck.cards:
