@@ -237,3 +237,30 @@ class WasteDeck(Deck):
                     )
         else:
             window.blit(self.emptyDeckImage, (self.x, self.y))
+
+
+# ---------------------------PACHET PENTRU MUTARI---------------------------
+""" Clasa pentru pachetul pentru mutari."""
+
+
+class MoveDeck(Deck):
+    """Constructorul clasei"""
+
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        self.active = False
+
+    """Metoda pentru a desena pachetul de mutari"""
+
+    def add_card(self, card):
+        self.cards.append(card)
+        card.set_border()
+        self.active = True
+
+    """Metoda pentru a desena pachetul de mutari"""
+
+    def remove_cards(self):
+        for card in self.cards:
+            card.set_border()
+        self.cards.clear()
+        self.active = False
