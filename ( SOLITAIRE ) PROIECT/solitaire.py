@@ -12,6 +12,8 @@ background_color = (0, 128, 0)  # RGB value for dark green
 pygame.display.flip()
 
 """ Functie pentru a incarca o imagine si a o scala la dimensiunile dorite """
+
+
 def UploadImage(image_path, width, height):
     image = pygame.image.load(image_path)
     scaled_image = pygame.transform.scale(image, (width, height))
@@ -171,3 +173,45 @@ class ReserveDeck(Deck):
         else:
             return None
 
+
+# ---------------------------PACHETE DE CARTI FINALE---------------------------
+""" Clasa pentru pachetele de carti finale."""
+
+
+class FoundationDeck(Deck):
+    """Constructorul clasei"""
+
+    def __init__(self, x, y, suit):
+        super().__init__(x, y)
+        self.suit = suit
+        self.emptyDeckImage = UploadImage(f"PNG-cards/{suit}_slot.png", 66, 100)
+
+    """Metoda pentru a adauga o carte in pachetul de carti finale"""
+
+    def add_card(self, card):
+        if card.suit == self.suit:
+            if self.cards:
+                if card.number == self.cards[-1].number + 1 or card.number == 1:
+                    self.cards.append(card)
+                    return True
+            else:
+                if card.number == 1:
+                    self.cards.append(card)
+                    return True
+        return False
+
+    """"Metoda pentru a desena pachetul de carti finale"""
+
+    def draw(self):
+        if self.cards:
+            for i, card in enumerate(self.cards):
+                card.draw(self.x, self.y)
+                if card.has_border:
+                    pygame.draw.rect(
+                        window,
+                        card.border_color,
+                        (self.x - 1, self.y - 1, 68, 102),
+                        3,
+                    )
+        else:
+            window.blit(self.emptyDeckImage, (self.x, self.y))
