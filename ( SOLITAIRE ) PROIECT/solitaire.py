@@ -264,3 +264,34 @@ class MoveDeck(Deck):
             card.set_border()
         self.cards.clear()
         self.active = False
+
+
+""" Clasa pentru butonul de reset."""
+
+
+class ResetButton:
+    """Constructorul clasei"""
+
+    def __init__(self, x, y, width, height):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.image = UploadImage("PNG-cards/reset.png", width, height)
+
+    """Metoda pentru a desena butonul"""
+
+    def draw(self):
+        window.blit(self.image, (self.x, self.y))
+
+    """Metoda pentru a verifica daca butonul a fost apasat"""
+
+    def IsClicked(self):
+        MousePosX, MousePosY = pygame.mouse.get_pos()
+        if (
+            self.x <= MousePosX <= self.x + self.width
+            and self.y <= MousePosY <= self.y + self.height
+        ):
+            return True
+        else:
+            return False
